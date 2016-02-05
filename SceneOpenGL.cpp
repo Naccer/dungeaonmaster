@@ -250,12 +250,12 @@ void SceneOpenGL::bouclePrincipale()
     mat4 projection;
     mat4 modelview;
 
-    projection = perspective(100.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 100.0);
+    projection = perspective(100.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 32.0);
     modelview = mat4(1.0);
 
     cout<<endl<<"x start*****"<< map.m_xStartPoint<<" "<<map.m_yStartPoint;
 
-    Hero hero(vec3(map.m_xStartPoint*16+8.0, 4, map.m_yStartPoint*16+8.0), vec3(map.m_xStartPoint*16+8.0, 4,  map.m_yStartPoint*16+8.0-1.0), vec3(0, 1, 0), 1, 16);
+    Hero hero(vec3(map.m_xStartPoint*16+8.0, 8.0, map.m_yStartPoint*16+8.0), vec3(map.m_xStartPoint*16+8.0, 8.0,  map.m_yStartPoint*16+8.0-1.0), vec3(0, 1, 0), 1, 16);
    // m_input.afficherPointeur(false);
    // m_input.capturerPointeur(true);
 
@@ -263,7 +263,10 @@ void SceneOpenGL::bouclePrincipale()
     Sol solTerreux(400.0, 240.0, 15, 17, "Shaders/texture.vert", "Shaders/texture.frag", "Textures/floor086.jpg");
     Sol roof(400.0, 240.0, 30, 15, "Shaders/texture.vert", "Shaders/texture.frag", "Textures/Sol.jpg");
     Mure mure(16.0, 16.0, 5, 5, "Shaders/texture.vert", "Shaders/texture.frag", "Textures/brick019.jpg");
-    Monster monster("Monsters/monster1/waster.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster2/Slasher.jpg");
+
+    Monster monster1("Monsters/monster1/waster.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster1/WasterDiffuse.jpg");
+    Monster monster2("Monsters/monster2/slasher.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster2/slasher.bmp");
+    Monster monster3("Monsters/monster3/aliennecromorph.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster3/Alien_Necromorph_D.tga");
     Cristal cristal("Shaders/texture.vert", "Shaders/texture.frag", "Textures/Cristal.tga");
 
 
@@ -302,26 +305,34 @@ void SceneOpenGL::bouclePrincipale()
         sauvegardeModelview = modelview;
 
 
-            modelview = translate(modelview, vec3(400.0/2, 8.0, 240.0/2));
+            modelview = translate(modelview, vec3(400.0/2, 16.0, 240.0/2));
             roof.afficher(projection, modelview);
 
 
         modelview = sauvegardeModelview;
 
-
-        // Sauvegarde de la matrice
-
-        glm::vec3 position = hero.getPosition();
-
-
         sauvegardeModelview = modelview;
 
-            modelview = translate(modelview, vec3(position.x,4.0,position.z-4));
+glm::vec3 position = hero.getPosition();
+
+           // modelview = scale(modelview,vec3(4.0,4.0,4.0));
+
+            modelview = translate(modelview, vec3(6*16+8.0,4.0,13*16+8.0));
             modelview = rotate(modelview, 180.0f,vec3(0, 1, 0));
-            monster.afficher(projection,modelview);
+            modelview = scale(modelview,vec3(2,2,2));
+            monster1.afficher(projection,modelview);
 
         modelview = sauvegardeModelview;
 
+        sauvegardeModelview = modelview;
+
+
+
+           // modelview = translate(modelview, vec3(position.x,4.0,position.z-1));
+            modelview = rotate(modelview, 180.0f,vec3(0, 1, 0));
+            monster2.afficher(projection,modelview);
+
+        modelview = sauvegardeModelview;
 
         sauvegardeModelview = modelview;
 
@@ -341,10 +352,10 @@ void SceneOpenGL::bouclePrincipale()
 
                     if(map.getValue(i+1,j) == 0)
                     {
-                        modelview = translate(modelview,vec3(position.x+8+_i*16,0,position.z+_j*16));
+                        modelview = translate(modelview,vec3(position.x+8+_i*16,8.0,position.z+_j*16));
                         modelview = rotate(modelview,90.0f,vec3(0,1,0));
                         mure.afficher(projection, modelview);
-                        cout<<"loop1"<<endl;
+                     //   cout<<"loop1"<<endl;
                     }
                     modelview = sauvegardeModelview;
                     sauvegardeModelview = modelview;
@@ -352,10 +363,10 @@ void SceneOpenGL::bouclePrincipale()
 
                     if(map.getValue(i-1,j) == 0)
                     {
-                        modelview = translate(modelview,vec3(position.x-8+_i*16 ,0,position.z+_j*16));
+                        modelview = translate(modelview,vec3(position.x-8+_i*16 ,8.0,position.z+_j*16));
                         modelview = rotate(modelview,90.0f,vec3(0,1,0));
                         mure.afficher(projection, modelview);
-                        cout<<"loop2"<<endl;
+                       // cout<<"loop2"<<endl;
                     }
 
                     modelview = sauvegardeModelview;
@@ -364,10 +375,10 @@ void SceneOpenGL::bouclePrincipale()
 
                     if(map.getValue(i,j+1) == 0)
                     {
-                        modelview = translate(modelview,vec3(position.x+_i*16,0,position.z+8+_j*16));
+                        modelview = translate(modelview,vec3(position.x+_i*16,8.0,position.z+8+_j*16));
                         //modelview = rotate(modelview,90.0f,vec3(0,1,0));
                         mure.afficher(projection, modelview);
-                        cout<<"loop3"<<endl;
+                       // cout<<"loop3"<<endl;
 
                     }
                     modelview = sauvegardeModelview;
@@ -378,10 +389,10 @@ void SceneOpenGL::bouclePrincipale()
 
                     if(map.getValue(i,j-1) == 0)
                     {
-                        modelview = translate(modelview,vec3(position.x+_i*16 ,0,position.z-8+_j*16));
+                        modelview = translate(modelview,vec3(position.x+_i*16 ,8.0,position.z-8+_j*16));
                         // modelview = rotate(modelview,90.0f,vec3(0,1,0));
                         mure.afficher(projection, modelview);
-                        cout<<"loop4"<<endl;
+                        //cout<<"loop4"<<endl;
                     }
 
                     modelview = sauvegardeModelview;
@@ -402,19 +413,19 @@ void SceneOpenGL::bouclePrincipale()
 
 
             // Rotation du cristal
-//
-//            angle++;
-//
-//            if(angle > 360)
-//                angle -= 360;
-//
-//
-//            // Affichage du cristal
-//
-//            modelview = translate(modelview, vec3(5, 10.1, 0));
-//            modelview = rotate(modelview, angle, vec3(0, 1, 0));
-//
-//            cristal.afficher(projection, modelview);
+
+            angle++;
+
+            if(angle > 360)
+                angle -= 360;
+
+
+            // Affichage du cristal
+
+            modelview = translate(modelview,  vec3(6*16+8.0,8.0,12*16+8.0));
+            modelview = rotate(modelview, angle, vec3(0, 1, 0));
+
+            cristal.afficher(projection, modelview);
 
 
 

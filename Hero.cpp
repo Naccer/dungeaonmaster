@@ -112,29 +112,27 @@ void Hero::orienter(int xRel, int yRel)
 
 void Hero::deplacer(Input const &input)
 {
-    // Gestion de l'orientation
+
 
 
 
 
     // Avancée de la caméra
 
-    int i=(int)m_position.x/16+8.0;
-    int  j=(int)m_position.z/16+8.0;
+
 
     if(input.getTouche(SDL_SCANCODE_UP))
     {
         vec3 position = m_position+m_orientation * m_vitesse;
         int i=(int)position.x/16;
         int  j=(int)position.z/16;
-
-
-        if(m_map.getValue(i,j) == 1)
+        //Verification si l'objet devant nous est bien une chambre vide
+        if(m_map.getValue(i,j) >= 1)
         {
 
-        m_position = m_position + m_orientation * m_vitesse;
-        m_pointCible = m_position + m_orientation;
-        SDL_Delay(100);
+            m_position = m_position + m_orientation * m_vitesse;
+            m_pointCible = m_position + m_orientation;
+            SDL_Delay(100);
         }
     }
 
@@ -143,9 +141,16 @@ void Hero::deplacer(Input const &input)
 
     if(input.getTouche(SDL_SCANCODE_DOWN))
     {
-        m_position = m_position - m_orientation * m_vitesse;
-        m_pointCible = m_position + m_orientation;
-        SDL_Delay(100);
+        vec3 position = m_position-m_orientation * m_vitesse;
+        int i=(int)position.x/16;
+        int  j=(int)position.z/16;
+        //Verification si l'objet devant nous est bien une chambre vide
+        if(m_map.getValue(i,j) >= 1)
+        {
+            m_position = m_position - m_orientation * m_vitesse;
+            m_pointCible = m_position + m_orientation;
+            SDL_Delay(100);
+        }
     }
 
 

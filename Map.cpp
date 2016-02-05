@@ -76,6 +76,8 @@ const unsigned int LARGEUR =m_largeurMap/16;
                     m_matrix[_i][_j] = 1;
                 }
 
+                // initial point
+
                  else if ((int)r == 255 and (int)g == 0 and (int)b == 0)
                 {
 
@@ -85,6 +87,8 @@ const unsigned int LARGEUR =m_largeurMap/16;
                     m_startPoint.x = _i;
                     m_startPoint.y = _j;
                 }
+
+                // End point
 
                 else if ((int)r == 0 and (int)g == 255 and (int)b == 0)
                 {
