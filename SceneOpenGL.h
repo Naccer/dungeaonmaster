@@ -56,7 +56,7 @@ class SceneOpenGL
     bool initGL();
     void bouclePrincipale();
 
-    int getOrientation(int x_map,int y_map);
+    //int getOrientation(int x_map,int y_map);
 
 
     private:

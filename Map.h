@@ -33,6 +33,7 @@ class Map
         bool isStartPoint(Point point);
         bool isStartPoint(int _x, int _y);
         int getValue(int _x,int _y);
+        void setValue(int _x, int _y,int value);
 
           //TODO: create accessors fot these methods
         int m_xStartPoint;

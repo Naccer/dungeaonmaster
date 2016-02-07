@@ -8,9 +8,13 @@ using namespace glm;
 
 // Constructeur et Destructeur
 
-Cristal::Cristal(std::string const vertexShader, std::string const fragmentShader, std::string const texture) : m_shader(vertexShader, fragmentShader), m_texture(texture)
+Cristal::Cristal(std::string const vertexShader, std::string const fragmentShader, std::string const texture,int bonus) : m_shader(vertexShader, fragmentShader), m_texture(texture),m_bonus(bonus)
 {
+    status = 1;
+
     // Chargement du shader
+
+
 
     m_shader.charger();
 

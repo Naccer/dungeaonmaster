@@ -9,23 +9,25 @@ using namespace glm;
 
 // Constructeurs et Destructeur
 
-Hero::Hero() : m_phi(0.0), m_theta(0.0), m_orientation(), m_axeVertical(0, 0, 1), m_deplacementLateral(), m_position(), m_pointCible(), m_sensibilite(0.0), m_vitesse(0.0),m_map("Maps/maze_ex.ppm")
+Hero::Hero() : m_phi(0.0), m_theta(0.0), m_orientation(), m_axeVertical(0, 0, 1), m_deplacementLateral(), m_position(), m_pointCible(), m_vitesse(0.0)
 {
 
 
 }
 
 
-Hero::Hero(glm::vec3 position, glm::vec3 pointCible, glm::vec3 axeVertical, float sensibilite, float vitesse) : m_phi(0.0), m_theta(0.0), m_orientation(),
+Hero::Hero(glm::vec3 position, glm::vec3 pointCible, glm::vec3 axeVertical,  float vitesse) : m_phi(0.0), m_theta(0.0), m_orientation(),
                                                                                                                     m_axeVertical(axeVertical), m_deplacementLateral(),
                                                                                                                     m_position(position), m_pointCible(pointCible),
-                                                                                                                    m_sensibilite(sensibilite), m_vitesse(vitesse),  m_map("Maps/maze_ex.ppm")
+                                                                                                                     m_vitesse(vitesse)
 {
 
-       m_map.charger();
+
     // Actualisation du point ciblé
 
     setPointcible(pointCible);
+
+    life =100;
 }
 
 
@@ -110,7 +112,7 @@ void Hero::orienter(int xRel, int yRel)
 }
 
 
-void Hero::deplacer(Input const &input)
+void Hero::deplacer(Input const &input,Map& m_map)
 {
 
 
@@ -130,6 +132,18 @@ void Hero::deplacer(Input const &input)
         if(m_map.getValue(i,j) >= 1)
         {
 
+
+            if(m_map.getValue(i,j) == 5){ //collision avec un objet de type cristal
+
+                m_map.setValue(i,j,1);
+
+                life+=5 ; // on augmente les point de vie
+                if(life>100)
+                    life=100;
+
+
+            }
+
             m_position = m_position + m_orientation * m_vitesse;
             m_pointCible = m_position + m_orientation;
             SDL_Delay(100);
@@ -145,8 +159,20 @@ void Hero::deplacer(Input const &input)
         int i=(int)position.x/16;
         int  j=(int)position.z/16;
         //Verification si l'objet devant nous est bien une chambre vide
-        if(m_map.getValue(i,j) >= 1)
+        if(m_map.getValue(i,j) >= 1) // on est pas devant un mure
         {
+            if(m_map.getValue(i,j) == 5)
+            { //collision avec un objet de type cristal
+
+                m_map.setValue(i,j,1);// on rend la valeur 1 pour que l'objet ne soit pas rendu
+
+                life+=5 ; // on augmente les point de vie
+
+                if(life>100)
+                    life=100;
+
+
+            }
             m_position = m_position - m_orientation * m_vitesse;
             m_pointCible = m_position + m_orientation;
             SDL_Delay(100);
@@ -257,10 +283,6 @@ void Hero::setPosition(glm::vec3 position)
 }
 
 
-float Hero::getSensibilite() const
-{
-    return m_vitesse;
-}
 
 
 float Hero::getVitesse() const
@@ -269,10 +291,7 @@ float Hero::getVitesse() const
 }
 
 
-void Hero::setSensibilite(float sensibilite)
-{
-    m_sensibilite = sensibilite;
-}
+
 
 
 void Hero::setVitesse(float vitesse)

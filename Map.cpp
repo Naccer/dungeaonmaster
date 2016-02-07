@@ -39,8 +39,8 @@ void Map::charger() {
     std::cout << "max:" << max << std::endl;
 
 
-const unsigned int HAUTEUR =m_hauteurMap/16;
-const unsigned int LARGEUR =m_largeurMap/16;
+    const unsigned int HAUTEUR =m_hauteurMap/16;
+    const unsigned int LARGEUR =m_largeurMap/16;
 
 
 
@@ -156,6 +156,11 @@ bool Map::isEndPoint()
 int Map::getValue(int _x, int _y)
 {
     return m_matrix[_x][_y];
+}
+
+void Map::setValue(int _x, int _y,int value)
+{
+     m_matrix[_x][_y]=value;
 }
 
 

@@ -127,98 +127,6 @@ bool SceneOpenGL::initGL()
 }
 
 
-//void SceneOpenGL::bouclePrincipale()
-//{
-//    // Variables
-//
-//    unsigned int frameRate (1000 / 50);
-//    Uint32 debutBoucle(0), finBoucle(0), tempsEcoule(0);
-//
-//
-//    // Matrices
-//
-//    Map map("Maps/maze_ex.ppm");
-//    map.charger();
-//
-//    mat4 projection;
-//    mat4 modelview;
-//
-//    projection = perspective(100.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 100.0);
-//    modelview = mat4(1.0);
-//
-//
-//    // Caméra mobile
-//
-//    cout<<endl<<"x start*****"<< map.m_xStartPoint<<" "<<map.m_yStartPoint;
-//
-//    Monster monster("Monsters/monster1/waster.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster2/Slasher.jpg");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    // Boucle principale
-//
-//    while(!m_input.terminer())
-//    {
-//        // On définit le temps de début de boucle
-//
-//        debutBoucle = SDL_GetTicks();
-//
-//
-//        // Gestion des évènements
-//
-//        m_input.updateEvenements();
-//
-//        if(m_input.getTouche(SDL_SCANCODE_ESCAPE))
-//            break;
-//
-//
-//        // Nettoyage de l'écran
-//
-//        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//
-//
-//        // Gestion de la caméra
-//
-//
-//    modelview = lookAt(vec3(0,0,-5),vec3(0,0,0),vec3(0,1,0));
-//
-//
-//        /* ***** Rendu ***** */
-//
-//      //  mat4 sauvegardeModelview = modelview;
-//
-//           // modelview = rotate(modelview,200.0f,vec3(0,1,0));
-//
-//
-//            monster.afficher(projection,modelview);
-//
-//
-//
-//
-//
-//        // Actualisation de la fenêtre
-//
-//        SDL_GL_SwapWindow(m_fenetre);
-//
-//
-//        // Calcul du temps écoulé
-//
-//        finBoucle = SDL_GetTicks();
-//        tempsEcoule = finBoucle - debutBoucle;
-//
-//
-//        // Si nécessaire, on met en pause le programme
-//
-//        if(tempsEcoule < frameRate)
-//            SDL_Delay(frameRate - tempsEcoule);
-//    }
-//}
 
 
 
@@ -247,15 +155,18 @@ void SceneOpenGL::bouclePrincipale()
     Map map("Maps/maze_ex.ppm");
     map.charger();
 
+    map.setValue(6,13,5);
+    map.setValue(1,4,5);
+
     mat4 projection;
     mat4 modelview;
 
-    projection = perspective(100.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 32.0);
+    projection = perspective(100.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 100.0);
     modelview = mat4(1.0);
 
     cout<<endl<<"x start*****"<< map.m_xStartPoint<<" "<<map.m_yStartPoint;
 
-    Hero hero(vec3(map.m_xStartPoint*16+8.0, 8.0, map.m_yStartPoint*16+8.0), vec3(map.m_xStartPoint*16+8.0, 8.0,  map.m_yStartPoint*16+8.0-1.0), vec3(0, 1, 0), 1, 16);
+    Hero hero(vec3(map.m_xStartPoint*16+8.0, 8.0, map.m_yStartPoint*16+8.0), vec3(map.m_xStartPoint*16+8.0, 8.0,  map.m_yStartPoint*16+8.0-1.0), vec3(0, 1, 0), 16);
    // m_input.afficherPointeur(false);
    // m_input.capturerPointeur(true);
 
@@ -266,8 +177,10 @@ void SceneOpenGL::bouclePrincipale()
 
     Monster monster1("Monsters/monster1/waster.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster1/WasterDiffuse.jpg");
     Monster monster2("Monsters/monster2/slasher.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster2/slasher.bmp");
-    Monster monster3("Monsters/monster3/aliennecromorph.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster3/Alien_Necromorph_D.tga");
-    Cristal cristal("Shaders/texture.vert", "Shaders/texture.frag", "Textures/Cristal.tga");
+   // Monster monster3("Monsters/monster3/alieCannecromorph.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster3/Alien_Necromorph_D.tga");
+   // Cristal cristal1("Shaders/texture.vert", "Shaders/texture.frag", "Textures/Cristal.tga",5);
+
+    Cristal cristal2("Shaders/texture.vert", "Shaders/texture.frag", "Textures/Cristal.tga",5);
 
 
     float angle(0.0);
@@ -282,7 +195,7 @@ void SceneOpenGL::bouclePrincipale()
         if(m_input.getTouche(SDL_SCANCODE_ESCAPE))
             break;
 
-        hero.deplacer(m_input);
+        hero.deplacer(m_input,map);
 
         // Nettoyage de l'écran
 
@@ -313,14 +226,14 @@ void SceneOpenGL::bouclePrincipale()
 
         sauvegardeModelview = modelview;
 
-glm::vec3 position = hero.getPosition();
+        glm::vec3 position = hero.getPosition();
 
            // modelview = scale(modelview,vec3(4.0,4.0,4.0));
 
             modelview = translate(modelview, vec3(6*16+8.0,4.0,13*16+8.0));
             modelview = rotate(modelview, 180.0f,vec3(0, 1, 0));
             modelview = scale(modelview,vec3(2,2,2));
-            monster1.afficher(projection,modelview);
+           // monster1.afficher(projection,modelview);
 
         modelview = sauvegardeModelview;
 
@@ -337,6 +250,12 @@ glm::vec3 position = hero.getPosition();
         sauvegardeModelview = modelview;
 
 
+         angle++;   //effet de rotation pour les objets
+
+            if(angle > 360)
+                angle -= 360;
+
+
 
    // Boucle pour le dessins des mures Est west nord et sud pour une ball de distance d8 a partir de la position actuelle
 
@@ -348,7 +267,7 @@ glm::vec3 position = hero.getPosition();
                 int i=(int)position.x/16+_i;
                 int  j=(int)position.z/16+_j;
 
-                if(map.getValue(i,j)==1){
+                if(map.getValue(i,j)>=1){
 
                     if(map.getValue(i+1,j) == 0)
                     {
@@ -359,6 +278,16 @@ glm::vec3 position = hero.getPosition();
                     }
                     modelview = sauvegardeModelview;
                     sauvegardeModelview = modelview;
+
+//                    if(map.getValue(i+1,j) == 5)
+//                    {
+//                        modelview = translate(modelview,vec3(position.x+8+_i*16,2.0,position.z+_j*16));
+//
+//                        cristal2.afficher(projection, modelview);
+//                     //   cout<<"loop1"<<endl;
+//                    }
+//                    modelview = sauvegardeModelview;
+//                    sauvegardeModelview = modelview;
 
 
                     if(map.getValue(i-1,j) == 0)
@@ -372,12 +301,35 @@ glm::vec3 position = hero.getPosition();
                     modelview = sauvegardeModelview;
                     sauvegardeModelview = modelview;
 
+//                    if(map.getValue(i-1,j) == 5)
+//                    {
+//                        modelview = translate(modelview,vec3(position.x-8+_i*16 ,2.0,position.z+_j*16));
+//                       // modelview = rotate(modelview,90.0f,vec3(0,1,0));
+//                        cristal2.afficher(projection, modelview);
+//                       // cout<<"loop2"<<endl;
+//                    }
+//
+//                    modelview = sauvegardeModelview;
+//                    sauvegardeModelview = modelview;
 
                     if(map.getValue(i,j+1) == 0)
                     {
                         modelview = translate(modelview,vec3(position.x+_i*16,8.0,position.z+8+_j*16));
                         //modelview = rotate(modelview,90.0f,vec3(0,1,0));
                         mure.afficher(projection, modelview);
+                       // cout<<"loop3"<<endl;
+
+                    }
+                    modelview = sauvegardeModelview;
+                    sauvegardeModelview = modelview;
+
+
+                     if(map.getValue(i,j+1) == 5)
+                    {
+                        modelview = translate(modelview,vec3(position.x+_i*16,2.0,position.z+8+_j*16-8.0));
+                        //modelview = rotate(modelview,90.0f,vec3(0,1,0));
+                        modelview = rotate(modelview, angle, vec3(0, 1, 0));
+                        cristal2.afficher(projection, modelview);
                        // cout<<"loop3"<<endl;
 
                     }
@@ -392,6 +344,19 @@ glm::vec3 position = hero.getPosition();
                         modelview = translate(modelview,vec3(position.x+_i*16 ,8.0,position.z-8+_j*16));
                         // modelview = rotate(modelview,90.0f,vec3(0,1,0));
                         mure.afficher(projection, modelview);
+                        //cout<<"loop4"<<endl;
+                    }
+
+                    modelview = sauvegardeModelview;
+                    sauvegardeModelview = modelview;
+
+                     if(map.getValue(i,j-1) == 5)
+                    {
+                        modelview = translate(modelview,vec3(position.x+_i*16 ,2.0,position.z-8+_j*16-8.0));
+                        // modelview = rotate(modelview,90.0f,vec3(0,1,0));
+                        modelview = rotate(modelview, angle, vec3(0, 1, 0));
+                        cristal2.afficher(projection, modelview);
+
                         //cout<<"loop4"<<endl;
                     }
 
@@ -414,23 +379,52 @@ glm::vec3 position = hero.getPosition();
 
             // Rotation du cristal
 
-            angle++;
-
-            if(angle > 360)
-                angle -= 360;
-
-
-            // Affichage du cristal
-
-            modelview = translate(modelview,  vec3(6*16+8.0,8.0,12*16+8.0));
-            modelview = rotate(modelview, angle, vec3(0, 1, 0));
-
-            cristal.afficher(projection, modelview);
 
 
 
+            // Affichage du crista
 
-        // Restauration de la matrice
+//            modelview = translate(modelview,  vec3(1*16+8.0,8.0,4*16+8.0));
+//            modelview = rotate(modelview, angle, vec3(0, 1, 0));
+//
+//            cristal1.afficher(projection, modelview);
+//
+//
+//            modelview = sauvegardeModelview;
+//            sauvegardeModelview = modelview;
+//
+//
+//           cout<<hero.life<<endl;;
+//
+//            if(cristal2.status){
+//
+//
+//
+//                map.setValue(6,13,5);
+//                cout<<(int)position.x/16<<endl;
+//
+//                modelview = translate(modelview, vec3(6*16+8.0,2.0,13*16+8.0));
+//
+//
+//                modelview = rotate(modelview, angle, vec3(0, 1, 0));
+//
+//                cristal2.afficher(projection, modelview);
+//
+//                if ((int)(position.x/16) == 6 and (int)position.z/16==13){
+//
+//                    hero.life+=cristal2.m_bonus;
+//                    cristal2.status =0;
+//                }
+//            }
+
+
+
+
+            modelview = sauvegardeModelview;
+            sauvegardeModelview = modelview;
+
+
+
 
         modelview = sauvegardeModelview;
 

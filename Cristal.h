@@ -33,16 +33,22 @@ class Cristal
 {
     public:
 
-    Cristal(std::string const vertexShader, std::string const fragmentShader, std::string const texture);
+    Cristal(std::string const vertexShader, std::string const fragmentShader, std::string const texture,int bonus);
     Cristal();
 
     void afficher(glm::mat4 &projection, glm::mat4 &modelview);
+
+
+    int m_bonus;
+    int status; // gathered or not;
 
 
     private:
 
     Shader m_shader;
     Texture m_texture;
+
+
 
     float m_vertices[72];
     float m_coordTexture[48];
