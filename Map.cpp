@@ -81,7 +81,7 @@ void Map::charger() {
                  else if ((int)r == 255 and (int)g == 0 and (int)b == 0)
                 {
 
-                    m_matrix[_i][_j] = 1;
+                    m_matrix[_i][_j] = 2;//start point
                     m_xStartPoint= _i;
                     m_yStartPoint=_j;
                     m_startPoint.x = _i;
@@ -93,7 +93,7 @@ void Map::charger() {
                 else if ((int)r == 0 and (int)g == 255 and (int)b == 0)
                 {
                     cout<<"end point at "<< i/16<<","<<j/16<<endl;
-                    m_matrix[_i][_j] = 1; // end point
+                    m_matrix[_i][_j] = 3; // end point
 
                     m_xEndPoint= _i;
                     m_yEndPoint=_j;

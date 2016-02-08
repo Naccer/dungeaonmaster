@@ -112,7 +112,7 @@ void Hero::orienter(int xRel, int yRel)
 }
 
 
-void Hero::deplacer(Input const &input,Map& m_map)
+void Hero::deplacer(Input const &input,Map& m_map,int& nombreObjets)
 {
 
 
@@ -140,6 +140,7 @@ void Hero::deplacer(Input const &input,Map& m_map)
                 life+=5 ; // on augmente les point de vie
                 if(life>100)
                     life=100;
+                nombreObjets --;
 
 
             }
@@ -170,6 +171,8 @@ void Hero::deplacer(Input const &input,Map& m_map)
 
                 if(life>100)
                     life=100;
+
+                nombreObjets--; // on decremente le nombre d'objets
 
 
             }

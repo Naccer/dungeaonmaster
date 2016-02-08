@@ -28,7 +28,7 @@ class Hero
     ~Hero();
 
     void orienter(int xRel, int yRel);
-    void deplacer(Input const &input,Map &m_map);
+    void deplacer(Input const &input,Map &m_map,int& nombreObjets);
     void lookAt(glm::mat4 &modelview);
 
     void setPointcible(glm::vec3 pointCible);

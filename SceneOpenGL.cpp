@@ -17,6 +17,8 @@ SceneOpenGL::SceneOpenGL(std::string titreFenetre, int largeurFenetre, int haute
                                                                                              m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0), m_input()
 {
 
+    m_nombreObjets=2;
+
 
 }
 
@@ -150,10 +152,14 @@ void SceneOpenGL::bouclePrincipale()
     Uint32 debutBoucle(0), finBoucle(0), tempsEcoule(0);
 
 
-    // Matrices
+
+
+    // Chargement du map
 
     Map map("Maps/maze_ex.ppm");
     map.charger();
+
+    // mettre les objets dans leurs coordonne dans le map
 
     map.setValue(6,13,5);
     map.setValue(1,4,5);
@@ -195,7 +201,7 @@ void SceneOpenGL::bouclePrincipale()
         if(m_input.getTouche(SDL_SCANCODE_ESCAPE))
             break;
 
-        hero.deplacer(m_input,map);
+        hero.deplacer(m_input,map,m_nombreObjets);
 
         // Nettoyage de l'écran
 
@@ -370,7 +376,7 @@ void SceneOpenGL::bouclePrincipale()
                 }
             }
 
-
+        cout <<m_nombreObjets<<endl;
 
 
 

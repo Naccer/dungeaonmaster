@@ -58,12 +58,16 @@ class SceneOpenGL
 
     //int getOrientation(int x_map,int y_map);
 
+    int m_nombreObjets;
+
 
     private:
 
     std::string m_titreFenetre;
     int m_largeurFenetre;
     int m_hauteurFenetre;
+
+
 
 
 
