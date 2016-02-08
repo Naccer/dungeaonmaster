@@ -39,6 +39,9 @@ class Map
         int m_xStartPoint;
         int m_yStartPoint;
 
+        int m_xEndPoint;
+        int m_yEndPoint;
+
 
 
         bool isEndPoint();
@@ -51,8 +54,7 @@ class Map
         int m_matrix[25][15];// la matrice doit etre transpose pour correspendre au map de l'opnGl
         Point m_startPoint;
 
-        int m_xEndPoint;
-        int m_yEndPoint;
+
 
         std::string m_fileMap;
         unsigned int m_largeurMap;

@@ -2,7 +2,7 @@
 #include "Mure.h"
 #include "Map.h"
 
-#include "Monster.h"
+#include "_AbstractMonster.h"
 
 
 
@@ -151,6 +151,8 @@ void SceneOpenGL::bouclePrincipale()
     unsigned int frameRate (1000 / 50);
     Uint32 debutBoucle(0), finBoucle(0), tempsEcoule(0);
 
+    bool win=false;
+
 
 
 
@@ -159,9 +161,9 @@ void SceneOpenGL::bouclePrincipale()
     Map map("Maps/maze_ex.ppm");
     map.charger();
 
-    // mettre les objets dans leurs coordonne dans le map
+    // chargement des objets dans leurs coordonnes dans le map
 
-    map.setValue(6,13,5);
+    map.setValue(6,13,5);// ici on affecte aux cordonne 6 et 13 la valeur 5 qui correspend a l'objet cristal
     map.setValue(1,4,5);
 
     mat4 projection;
@@ -170,7 +172,7 @@ void SceneOpenGL::bouclePrincipale()
     projection = perspective(100.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 100.0);
     modelview = mat4(1.0);
 
-    cout<<endl<<"x start*****"<< map.m_xStartPoint<<" "<<map.m_yStartPoint;
+   // cout<<endl<<"x start*****"<< map.m_xStartPoint<<" "<<map.m_yStartPoint;
 
     Hero hero(vec3(map.m_xStartPoint*16+8.0, 8.0, map.m_yStartPoint*16+8.0), vec3(map.m_xStartPoint*16+8.0, 8.0,  map.m_yStartPoint*16+8.0-1.0), vec3(0, 1, 0), 16);
    // m_input.afficherPointeur(false);
@@ -181,9 +183,9 @@ void SceneOpenGL::bouclePrincipale()
     Sol roof(400.0, 240.0, 30, 15, "Shaders/texture.vert", "Shaders/texture.frag", "Textures/Sol.jpg");
     Mure mure(16.0, 16.0, 5, 5, "Shaders/texture.vert", "Shaders/texture.frag", "Textures/brick019.jpg");
 
-    Monster monster1("Monsters/monster1/waster.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster1/WasterDiffuse.jpg");
-    Monster monster2("Monsters/monster2/slasher.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster2/slasher.bmp");
-   // Monster monster3("Monsters/monster3/alieCannecromorph.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/monster3/Alien_Necromorph_D.tga");
+    _AbstractMonster _AbstractMonster1("Monsters/monster1/waster.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/Monster1/WasterDiffuse.jpg");
+    _AbstractMonster _AbstractMonster2("Monsters/Monster2/slasher.obj","Shaders/texture.vert","Shaders/texture.frag","Monsters/Monster2/slasher.bmp");
+   // _AbstractMonster _AbstractMonster3("_AbstractMonsters/_AbstractMonster3/alieCannecromorph.obj","Shaders/texture.vert","Shaders/texture.frag","_AbstractMonsters/_AbstractMonster3/Alien_Necromorph_D.tga");
    // Cristal cristal1("Shaders/texture.vert", "Shaders/texture.frag", "Textures/Cristal.tga",5);
 
     Cristal cristal2("Shaders/texture.vert", "Shaders/texture.frag", "Textures/Cristal.tga",5);
@@ -239,7 +241,7 @@ void SceneOpenGL::bouclePrincipale()
             modelview = translate(modelview, vec3(6*16+8.0,4.0,13*16+8.0));
             modelview = rotate(modelview, 180.0f,vec3(0, 1, 0));
             modelview = scale(modelview,vec3(2,2,2));
-           // monster1.afficher(projection,modelview);
+           // _AbstractMonster1.afficher(projection,modelview);
 
         modelview = sauvegardeModelview;
 
@@ -249,7 +251,7 @@ void SceneOpenGL::bouclePrincipale()
 
            // modelview = translate(modelview, vec3(position.x,4.0,position.z-1));
             modelview = rotate(modelview, 180.0f,vec3(0, 1, 0));
-            monster2.afficher(projection,modelview);
+            _AbstractMonster2.afficher(projection,modelview);
 
         modelview = sauvegardeModelview;
 
@@ -263,7 +265,9 @@ void SceneOpenGL::bouclePrincipale()
 
 
 
-   // Boucle pour le dessins des mures Est west nord et sud pour une ball de distance d8 a partir de la position actuelle
+   // Boucle pour le rendu des mures  Est west nord et sud pour une ball de distance d8 a partir de la position actuelle
+
+   // + rendu des objets
 
         for (int _i=-1;_i<=1;_i++)
         {
@@ -285,15 +289,7 @@ void SceneOpenGL::bouclePrincipale()
                     modelview = sauvegardeModelview;
                     sauvegardeModelview = modelview;
 
-//                    if(map.getValue(i+1,j) == 5)
-//                    {
-//                        modelview = translate(modelview,vec3(position.x+8+_i*16,2.0,position.z+_j*16));
-//
-//                        cristal2.afficher(projection, modelview);
-//                     //   cout<<"loop1"<<endl;
-//                    }
-//                    modelview = sauvegardeModelview;
-//                    sauvegardeModelview = modelview;
+
 
 
                     if(map.getValue(i-1,j) == 0)
@@ -307,16 +303,6 @@ void SceneOpenGL::bouclePrincipale()
                     modelview = sauvegardeModelview;
                     sauvegardeModelview = modelview;
 
-//                    if(map.getValue(i-1,j) == 5)
-//                    {
-//                        modelview = translate(modelview,vec3(position.x-8+_i*16 ,2.0,position.z+_j*16));
-//                       // modelview = rotate(modelview,90.0f,vec3(0,1,0));
-//                        cristal2.afficher(projection, modelview);
-//                       // cout<<"loop2"<<endl;
-//                    }
-//
-//                    modelview = sauvegardeModelview;
-//                    sauvegardeModelview = modelview;
 
                     if(map.getValue(i,j+1) == 0)
                     {
@@ -376,52 +362,12 @@ void SceneOpenGL::bouclePrincipale()
                 }
             }
 
-        cout <<m_nombreObjets<<endl;
+       // cout <<m_nombreObjets<<endl;
 
 
 
 
 
-
-            // Rotation du cristal
-
-
-
-
-            // Affichage du crista
-
-//            modelview = translate(modelview,  vec3(1*16+8.0,8.0,4*16+8.0));
-//            modelview = rotate(modelview, angle, vec3(0, 1, 0));
-//
-//            cristal1.afficher(projection, modelview);
-//
-//
-//            modelview = sauvegardeModelview;
-//            sauvegardeModelview = modelview;
-//
-//
-//           cout<<hero.life<<endl;;
-//
-//            if(cristal2.status){
-//
-//
-//
-//                map.setValue(6,13,5);
-//                cout<<(int)position.x/16<<endl;
-//
-//                modelview = translate(modelview, vec3(6*16+8.0,2.0,13*16+8.0));
-//
-//
-//                modelview = rotate(modelview, angle, vec3(0, 1, 0));
-//
-//                cristal2.afficher(projection, modelview);
-//
-//                if ((int)(position.x/16) == 6 and (int)position.z/16==13){
-//
-//                    hero.life+=cristal2.m_bonus;
-//                    cristal2.status =0;
-//                }
-//            }
 
 
 
@@ -440,6 +386,14 @@ void SceneOpenGL::bouclePrincipale()
         SDL_GL_SwapWindow(m_fenetre);
 
 
+
+        if(m_nombreObjets ==0 && (int)position.x /16 ==map.m_xEndPoint && (int)position.z/16 == map.m_yEndPoint)
+        {
+            win=true;
+            break;
+        }
+
+
         // Calcul du temps écoulé
 
         finBoucle = SDL_GetTicks();
@@ -451,5 +405,8 @@ void SceneOpenGL::bouclePrincipale()
         if(tempsEcoule < frameRate)
             SDL_Delay(frameRate - tempsEcoule);
     }
+
+    if(win == true)
+        cout<<"you win";
 }
 

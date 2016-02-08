@@ -1096,7 +1096,7 @@
 	<iostream>
 	<string>
 
-1454878096 source:c:\users\nacer\desktop\dungeaonmaster\hero.cpp
+1454920643 source:c:\users\nacer\desktop\dungeaonmaster\hero.cpp
 	"Hero.h"
 
 1454878021 c:\users\nacer\desktop\dungeaonmaster\hero.h
@@ -1110,7 +1110,7 @@
 1368383734 c:\users\nacer\desktop\dungeaonmaster\input.h
 	<SDL2/SDL.h>
 
-1454869537 c:\users\nacer\desktop\dungeaonmaster\map.h
+1454895556 c:\users\nacer\desktop\dungeaonmaster\map.h
 	<iostream>
 	<fstream>
 	<string>
@@ -1118,7 +1118,7 @@
 1368383734 source:c:\users\nacer\desktop\dungeaonmaster\input.cpp
 	"Input.h"
 
-1454876615 source:c:\users\nacer\desktop\dungeaonmaster\map.cpp
+1454920796 source:c:\users\nacer\desktop\dungeaonmaster\map.cpp
 	"Map.h"
 
 1453781430 source:c:\users\nacer\desktop\dungeaonmaster\mure.cpp
@@ -1133,11 +1133,11 @@
 	"Shader.h"
 	"Texture.h"
 
-1454872671 source:c:\users\nacer\desktop\dungeaonmaster\sceneopengl.cpp
+1454921346 source:c:\users\nacer\desktop\dungeaonmaster\sceneopengl.cpp
 	"SceneOpenGL.h"
 	"Mure.h"
 	"Map.h"
-	"Monster.h"
+	"_AbstractMonster.h"
 
 1454877787 c:\users\nacer\desktop\dungeaonmaster\sceneopengl.h
 	<GL/glew.h>
@@ -1165,7 +1165,7 @@
 	"Shader.h"
 	"Texture.h"
 
-1454703925 c:\users\nacer\desktop\dungeaonmaster\monster.h
+1454894870 c:\users\nacer\desktop\dungeaonmaster\monster.h
 	<GL/glew.h>
 	<GL3/gl3.h>
 	<vector>
@@ -1204,4 +1204,18 @@
 
 1454608424 c:\users\nacer\desktop\dungeaonmaster\objectloader.h
 	<vector>
+
+1454921147 source:c:\users\nacer\desktop\dungeaonmaster\_abstractmonster.cpp
+	"_AbstractMonster.h"
+	"objectLoader.h"
+
+1454921271 c:\users\nacer\desktop\dungeaonmaster\_abstractmonster.h
+	<GL/glew.h>
+	<GL3/gl3.h>
+	<vector>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	"Shader.h"
+	"Texture.h"
 

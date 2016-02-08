@@ -43,10 +43,10 @@ void Hero::orienter(int xRel, int yRel)
 {
     // Récupération des angles
 
-    m_phi += -yRel ;
+    m_phi += -yRel;
     m_theta += -xRel;
 
-    std::cout << m_theta;
+   // std::cout << m_theta;
 
 
     // Limitation de l'angle phi
@@ -128,7 +128,7 @@ void Hero::deplacer(Input const &input,Map& m_map,int& nombreObjets)
         vec3 position = m_position+m_orientation * m_vitesse;
         int i=(int)position.x/16;
         int  j=(int)position.z/16;
-        //Verification si l'objet devant nous est bien une chambre vide
+        //Verification si l'objet devant est bien une chambre vide
         if(m_map.getValue(i,j) >= 1)
         {
 

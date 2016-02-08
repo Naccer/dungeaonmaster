@@ -21,8 +21,8 @@ void Map::charger() {
 
     char *type = new char[2];
     myFile >> type;
-    std::cout << "Function read PPM:" << std::endl;
-    std::cout << "type:" << type << std::endl;
+//    std::cout << "Function read PPM:" << std::endl;
+//    std::cout << "type:" << type << std::endl;
 
     myFile >>  m_largeurMap;
     myFile >> m_hauteurMap;
@@ -31,8 +31,8 @@ void Map::charger() {
 
 
 
-    std::cout << "lines:" << m_hauteurMap<< std::endl;
-    std::cout << "coluns:" << m_largeurMap << std::endl;
+//    std::cout << "lines:" << m_hauteurMap<< std::endl;
+//    std::cout << "coluns:" << m_largeurMap << std::endl;
 
     int max;
     myFile >> max;
@@ -66,13 +66,13 @@ void Map::charger() {
             {
                 int _j=i/16;
                 int _i=j/16;
-                cout<< co++ <<"  " ;
+                //cout<< co++ <<"  " ;
 
                 if ((int)r == 0 and (int)g == 0 and (int)b == 0)
                     m_matrix[_i][_j] = 0;
                 else if ((int)r == 255 and (int)g == 255 and (int)b == 255)
                 {
-                    cout<< "one";
+//                    cout<< "one";
                     m_matrix[_i][_j] = 1;
                 }
 
@@ -92,7 +92,7 @@ void Map::charger() {
 
                 else if ((int)r == 0 and (int)g == 255 and (int)b == 0)
                 {
-                    cout<<"end point at "<< i/16<<","<<j/16<<endl;
+                    //cout<<"end point at "<< i/16<<","<<j/16<<endl;
                     m_matrix[_i][_j] = 3; // end point
 
                     m_xEndPoint= _i;
@@ -104,7 +104,10 @@ void Map::charger() {
         }
     }
 
-    cout<<endl;
+   // cout<<endl;
+
+
+
 
 
     for (int i = 0; i < m_largeurMap/16; i++)
@@ -116,18 +119,10 @@ void Map::charger() {
             m_matrix[i][m_hauteurMap/16-j-1] = tmp;
 
         }
-        cout<<endl;
+     //   cout<<endl;
     }
 
-    for (int i = 0; i < m_largeurMap/16; i++)
-    {
-        for(int j=0;j<m_hauteurMap/16;j++)
-        {
 
-            cout<< m_matrix[i][j]<<" ";
-        }
-        cout<<endl;
-    }
 
 
 
