@@ -16,6 +16,7 @@
 					<Add directory="include" />
 					<Add directory="../tp" />
 					<Add directory="../dungeon" />
+					<Add directory="../dungeaonmaster" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -28,6 +29,7 @@
 					<Add directory="include" />
 					<Add directory="../tp" />
 					<Add directory="../dungeon" />
+					<Add directory="../dungeaonmaster" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -56,6 +58,8 @@
 		<Unit filename="Input.h" />
 		<Unit filename="Map.cpp" />
 		<Unit filename="Map.h" />
+		<Unit filename="Monster.cpp" />
+		<Unit filename="Monster.h" />
 		<Unit filename="Mure.cpp" />
 		<Unit filename="Mure.h" />
 		<Unit filename="SceneOpenGL.cpp" />
@@ -66,10 +70,10 @@
 		<Unit filename="Sol.h" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />
-		<Unit filename="include/Monster.h" />
+		<Unit filename="_AbstractMonster.cpp" />
+		<Unit filename="_AbstractMonster.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="objectLoader.h" />
-		<Unit filename="src/Monster.cpp" />
 		<Unit filename="src/objectLoader.cpp" />
 		<Extensions>
 			<code_completion />

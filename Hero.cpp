@@ -102,8 +102,8 @@ void Hero::orienter(int xRel, int yRel)
 
     // Calcul de la normale
 
-    m_deplacementLateral = cross(m_axeVertical, m_orientation);
-    m_deplacementLateral = normalize(m_deplacementLateral);
+   // m_deplacementLateral = cross(m_axeVertical, m_orientation);
+   // m_deplacementLateral = normalize(m_deplacementLateral);
 
 
     // Calcul du point ciblé pour OpenGL
